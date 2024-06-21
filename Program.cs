@@ -110,8 +110,6 @@ namespace teste
             senha_verificar = senha_cadastro;
             
             Console.WriteLine("---------------------");
-            Console.WriteLine("Endereço");
-            Console.WriteLine("---------------------");
             Console.Write("Digite sua cidade: ");
             endereco_cidade = Console.ReadLine();
             Console.Write("Digite seu município: ");
@@ -136,6 +134,7 @@ namespace teste
                 break;
 
                 case 3:
+                    Console.Clear();
                     Console.WriteLine("Aplicação encerrada!");
                     Environment.Exit(0);
                 break;
@@ -152,7 +151,7 @@ namespace teste
             Console.WriteLine("Valor do seu carrinho: " + "R$"+valor_carrinho);
             Console.WriteLine("-----------------------------");
             Console.WriteLine("Escolha um setor: ");
-            Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n4 - Sair"); 
+            Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-----------------------------\n4 - Pagar\n5 - Sair"); 
             Console.Write ("\n-> ");
             opcao_setor = Convert.ToUInt16(Console.ReadLine());
 
@@ -171,6 +170,22 @@ namespace teste
                 break;
 
                 case 4:
+                    if (valor_carrinho == 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Nenhum produto adicionado!");
+                        Console.WriteLine("Voltando para o menu de setores...");
+                        Thread.Sleep(1500);
+                        Menu_setores();
+                    }
+                    else
+                    {
+                        Pagamento();
+                    }
+                break;
+
+                case 5:
+                    Console.Clear();
                     Console.WriteLine("Aplicação encerrada!");
                     Thread.Sleep(1000);
                     Environment.Exit(0);
@@ -254,7 +269,7 @@ namespace teste
             }
 
                 valor_carrinho += precos_carnes[opcao_produto];
-                produtosEscolhidos.Add(produtos_carnes[opcao_produto] + " R$ " + precos_alimentos[opcao_produto]);
+                produtosEscolhidos.Add(produtos_carnes[opcao_produto] + " R$ " + precos_carnes[opcao_produto]);
                 adicionar_ou_pagar();
         }
 
@@ -284,6 +299,9 @@ namespace teste
         {
             Console.Clear();
 
+            UInt16 opcao_pag, opcao_pos_pagamento;
+
+            Console.Write("Produtos escolhidos:\n");
             foreach (var produto in produtosEscolhidos)
             {
                 Console.WriteLine(produto);
@@ -294,26 +312,54 @@ namespace teste
             Console.WriteLine("----------------------");
             Console.WriteLine("Selecione uma opção de pagamento: \n1 - Crédito\n2 - Débito\n3 - Pix");
             Console.Write("\n-> ");
-            UInt16 opcao_pag = Convert.ToUInt16(Console.ReadLine());
+            opcao_pag = Convert.ToUInt16(Console.ReadLine());
+            Console.WriteLine("----------------------");
+            Console.Clear();
 
             switch (opcao_pag) 
             {
                 case 1:
-                    Console.WriteLine("\nPagamento realizado com o cartão de crédito.");
+                    Console.WriteLine("Pagamento realizado com o cartão de crédito.");
                 break;
 
                 case 2:
-                    Console.WriteLine("\nPagamento realizado com o cartão de débito.");
+                    Console.WriteLine("Pagamento realizado com o cartão de débito.");
                 break;
 
                 case 3:
-                    Console.WriteLine("\nPagamento realizado com o Pix.");
+                    Console.WriteLine("Pagamento realizado com o Pix.");
                 break;
             }
 
             Console.WriteLine($"Seu pedido chegará em breve no endereço cadastrado:\n\nCidade: {endereco_cidade}\nMunicípio: {endereco_municipio}\nRua: {endereco_rua} N°{endereco_numero}\n");
-            Environment.Exit(0);
-            Console.ReadKey();
+            Console.WriteLine("----------------------");
+            Console.WriteLine("Escolha uma opção:\n1 - Ir para menu inicial\n2 - Ir para menu de setores\n3 - Sair");
+            Console.Write("\n-> ");
+            opcao_pos_pagamento = UInt16.Parse(Console.ReadLine());
+
+            if (opcao_pos_pagamento == 1) 
+            {
+                LimparList();
+                Menu();
+            }
+
+            if (opcao_pos_pagamento == 2) 
+            {
+                LimparList();
+                Menu_setores();
+            }
+
+            if (opcao_pos_pagamento == 3) 
+            {
+                Console.WriteLine("Aplicação encerrada.");
+                Environment.Exit(0);
+            }
+        }
+
+        public static void LimparList() 
+        {
+            produtosEscolhidos.Clear();
+            valor_carrinho = 0;
         }
     }
 }
