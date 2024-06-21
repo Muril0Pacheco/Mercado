@@ -7,7 +7,7 @@ namespace teste
 {
     class Program
     {
-        static string user_verificar = "user", senha_verificar = "senha";
+        static string user_verificar, senha_verificar;
 
         static string[] produtos_limpeza = {"Detergente", "Bucha", "Agua Sanitaria 1L"} ;
         static decimal[] precos_limpeza = {2.90m, 2.00m, 7.50m};
@@ -15,6 +15,8 @@ namespace teste
         static decimal[] precos_alimentos = {15.50m, 5.50m, 7.50m};
         static string[] produtos_carnes = {"Carne bovina", "Frango", "Linguica"} ;
         static decimal[] precos_carnes = {9.50m, 7.40m, 5.50m};
+
+        static string user_cadastro, senha_cadastro, endereco_municipio, endereco_cidade, endereco_rua, endereco_numero;
 
         static List<string> produtosEscolhidos = new List<string>();
 
@@ -50,6 +52,7 @@ namespace teste
             if (opcao == 3)
             {
                 Console.WriteLine("\nSaindo...");
+                Environment.Exit(0);
                 Thread.Sleep(1000);
             }
 
@@ -93,8 +96,6 @@ namespace teste
         static void Cadastro_user()
         {
             Console.Clear();
-
-            string user_cadastro, senha_cadastro, endereco_municipio, endereco_rua, endereco_numero;
             UInt16 opcao_user;
 
             Console.WriteLine("Cadastro");
@@ -111,17 +112,34 @@ namespace teste
             Console.WriteLine("---------------------");
             Console.WriteLine("Endereço");
             Console.WriteLine("---------------------");
-            Console.WriteLine("Digite seu município: ");
+            Console.Write("Digite sua cidade: ");
+            endereco_cidade = Console.ReadLine();
+            Console.Write("Digite seu município: ");
             endereco_municipio = Console.ReadLine();
-            Console.WriteLine("Digite o nome de sua rua: ");
+            Console.Write("Digite o nome de sua rua: ");
             endereco_rua = Console.ReadLine();
-            Console.WriteLine("Digite o número: ");
+            Console.Write("Digite o número: ");
             endereco_numero = Console.ReadLine();
             Console.WriteLine("---------------------");
-            Console.WriteLine("Selecione uma opção:\n1 - Refazer Cadastro\n2 - Ir para menu inicial");
+            Console.WriteLine("Selecione uma opção:\n1 - Refazer Cadastro\n2 - Ir para menu inicial\n3 - Sair ");
+            Console.Write("\n-> ");
+            opcao_user = UInt16.Parse(Console.ReadLine());
 
+            switch (opcao_user) 
+            {
+                case 1:
+                    Cadastro_user();
+                break;
 
+                case 2:
+                    Menu();
+                break;
 
+                case 3:
+                    Console.WriteLine("Aplicação encerrada!");
+                    Environment.Exit(0);
+                break;
+            }
             Entrar();
         }
 
@@ -153,7 +171,7 @@ namespace teste
                 break;
 
                 case 4:
-                    Console.WriteLine("Saindo...");
+                    Console.WriteLine("Aplicação encerrada!");
                     Thread.Sleep(1000);
                     Environment.Exit(0);
                 break;
@@ -293,8 +311,8 @@ namespace teste
                 break;
             }
 
-            Console.WriteLine("Seu pedido chegará em breve no endreço cadastrado: ");
-
+            Console.WriteLine($"Seu pedido chegará em breve no endereço cadastrado:\n\nCidade: {endereco_cidade}\nMunicípio: {endereco_municipio}\nRua: {endereco_rua} N°{endereco_numero}\n");
+            Environment.Exit(0);
             Console.ReadKey();
         }
     }
