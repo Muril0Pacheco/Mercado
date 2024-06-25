@@ -17,14 +17,15 @@ namespace teste
         static decimal[] precos_carnes = {9.50m, 7.40m, 5.50m};
 
         static string user_cadastro, senha_cadastro;
-        static string endereco_municipio, endereco_cidade, endereco_rua, endereco_numero;
+        static string endereco_municipio, endereco_cidade, endereco_rua, endereco_complemento;
+        static UInt16 endereco_numero;
 
         static List<string> produtosEscolhidos = new List<string>();
 
         static decimal valor_carrinho;
         
         static void Main ()
-        {
+        {            
             Menu();
         }
 
@@ -117,18 +118,31 @@ namespace teste
 
         static void Cadastro_user()
         {
-            Console.Clear();
-            UInt16 opcao_user = 0;
+            Console.Clear();           
 
             Console.WriteLine("Cadastro");
             Console.WriteLine("---------------------");
             try
             {
-                Console.Write("Crie um usuário: ");
+                Console.Write("Crie um usuário (10 caracteres no máximo): ");
                 user_cadastro = Console.ReadLine();
 
-                Console.Write("Crie uma senha: ");
+                if (user_cadastro.Length > 10) 
+                {
+                    Console.WriteLine("\nSeu usuário pode conter no máximo 10 caracteres");
+                    Thread.Sleep(1300);
+                    Cadastro_user();
+                }
+
+                Console.Write("Crie uma senha (6 caracteres no mínimo): ");
                 senha_cadastro = Console.ReadLine();
+
+                if (senha_cadastro.Length < 6)
+                {
+                    Console.WriteLine("\nSua senha deve conter no mínimo 6 caracteres");
+                    Thread.Sleep(1300);
+                    Cadastro_user();
+                }
 
                 user_verificar = user_cadastro;
                 senha_verificar = senha_cadastro;
@@ -140,12 +154,9 @@ namespace teste
                 endereco_municipio = Console.ReadLine();
                 Console.Write("Digite o nome de sua rua: ");
                 endereco_rua = Console.ReadLine();
-                Console.Write("Digite o número: ");
-                endereco_numero = Console.ReadLine();
-                Console.WriteLine("---------------------");
-                Console.WriteLine("Selecione uma opção:\n1 - Refazer Cadastro\n2 - Ir para menu inicial\n3 - Sair ");
-                Console.Write("\n-> ");
-                opcao_user = UInt16.Parse(Console.ReadLine());
+                Console.Write("Digite o complemento: ");
+                endereco_complemento = Console.ReadLine();
+                solicitar_numero_residencia();   
             }
 
             catch (Exception) 
@@ -154,27 +165,70 @@ namespace teste
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu inicial.");
                 Thread.Sleep(1600);
                 Menu();
+            }          
+        }
+        
+        static void solicitar_numero_residencia() 
+        {
+            try
+            {
+                Console.Write("Digite o número da sua residência: ");
+                endereco_numero = Convert.ToUInt16(Console.ReadLine());
             }
 
-            switch (opcao_user) 
+            catch (FormatException)
+            {
+                Console.WriteLine("Digite apenas números!\n");
+                Thread.Sleep(1300);
+                solicitar_numero_residencia();
+            }
+
+            pos_cadastro();
+        }
+
+        static void pos_cadastro() 
+        {
+            UInt16 opcao_user = 0;
+
+            try
+            {
+                Console.WriteLine("---------------------");
+                Console.WriteLine("Selecione uma opção:\n1 - Refazer Cadastro\n2 - Login\n3 - Sair ");
+                Console.Write("\n-> ");
+                opcao_user = UInt16.Parse(Console.ReadLine());
+            }
+
+            catch (FormatException) 
+            {
+                Console.WriteLine("Digite apenas números!");
+                Thread.Sleep(1300);
+                pos_cadastro();
+            }
+
+            switch (opcao_user)
             {
                 case 1:
                     Cadastro_user();
-                break;
+                    break;
 
                 case 2:
-                    Menu();
-                break;
+                    Entrar();
+                    break;
 
                 case 3:
                     Console.Clear();
                     Console.WriteLine("Aplicação encerrada!");
                     Environment.Exit(0);
-                break;
+                    break;
+
+                default:
+                    Console.WriteLine("\nDigite uma opção válida");
+                    Thread.Sleep(1300);
+                    pos_cadastro();
+                    break;
             }
-            Entrar();
         }
-        
+
         static void Menu_setores()
         {
             UInt16 opcao_setor = 0;
@@ -187,7 +241,7 @@ namespace teste
                 Console.WriteLine("Valor do seu carrinho: " + "R$" + valor_carrinho);
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("Escolha um setor: ");
-                Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-----------------------------\n4 - Pagar\n5 - Sair");
+                Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-----------------------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
                 Console.Write("\n-> ");
                 opcao_setor = Convert.ToUInt16(Console.ReadLine());
             }
@@ -230,6 +284,10 @@ namespace teste
                 break;
 
                 case 5:
+                    Menu();
+                break;
+
+                case 6:
                     Console.Clear();
                     Console.WriteLine("Aplicação encerrada!");
                     Thread.Sleep(1000);
@@ -424,9 +482,9 @@ namespace teste
                         break;
                 }
 
-                Console.WriteLine($"Seu pedido chegará em breve no endereço cadastrado:\n\nCidade: {endereco_cidade}\nMunicípio: {endereco_municipio}\nRua: {endereco_rua} N°{endereco_numero}\n");
-                Console.WriteLine("----------------------");
-                Console.WriteLine("Pressione qualquer tecla para continuar");            
+                Console.WriteLine($"Seu pedido chegará em breve no endereço cadastrado:\n\nCidade: {endereco_cidade}\nMunicípio: {endereco_municipio}\nRua: {endereco_rua} N°{endereco_numero}\nComplemento: {endereco_complemento}");
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");            
                 Console.ReadKey();
                 pos_pagamento();
             }
@@ -439,12 +497,14 @@ namespace teste
                 Pagamento();
             }
         }
+
         static void pos_pagamento()
         {
             Console.Clear();
 
             UInt16 opcao_pos_pagamento = 0;
 
+            Console.WriteLine("----------------------");
             Console.WriteLine("Escolha uma opção:\n1 - Ir para menu inicial\n2 - Ir para menu de setores\n3 - Sair");
             Console.Write("\n-> ");
 
@@ -475,6 +535,7 @@ namespace teste
 
             if (opcao_pos_pagamento == 3)
             {
+                Console.Clear();
                 Console.WriteLine("Aplicação encerrada.");
                 Environment.Exit(0);
             }
@@ -484,6 +545,6 @@ namespace teste
         {
             produtosEscolhidos.Clear();
             valor_carrinho = 0;
-        }
+        }        
     }
 }
