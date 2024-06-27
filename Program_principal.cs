@@ -9,29 +9,29 @@ namespace teste
     {
         static string user_verificar, senha_verificar;
 
-        static string[] produtos_limpeza = {"Detergente", "Bucha", "Agua Sanitaria 1L"} ;
-        static decimal[] precos_limpeza = {2.90m, 2.00m, 7.50m};
-        static string[] produtos_alimentos = {"Arroz 5KG", "Feijao 1KG", "Macarrao 500g"} ;
-        static decimal[] precos_alimentos = {15.50m, 5.50m, 7.50m};
-        static string[] produtos_carnes = {"Carne bovina", "Frango", "Linguica"} ;
-        static decimal[] precos_carnes = {9.50m, 7.40m, 5.50m};
+        static string[] produtos_limpeza = { "Detergente", "Bucha", "Agua Sanitaria 1L" };
+        static decimal[] precos_limpeza = { 2.90m, 2.00m, 7.50m };
+        static string[] produtos_alimentos = { "Arroz 5KG", "Feijao 1KG", "Macarrao 500g" };
+        static decimal[] precos_alimentos = { 15.50m, 5.50m, 7.50m };
+        static string[] produtos_carnes = { "Carne bovina", "Frango", "Linguica" };
+        static decimal[] precos_carnes = { 9.50m, 7.40m, 5.50m };
 
         static string user_cadastro, senha_cadastro;
         static string endereco_municipio, endereco_cidade, endereco_rua, endereco_complemento;
         static UInt16 endereco_numero;
 
         static List<string> produtosEscolhidos = new List<string>();
-
         static decimal valor_carrinho;
-        
-        static void Main ()
-        {            
+
+        static void Main()
+        {
             Menu();
+            //Menu_setores()
         }
 
-        static void Menu ()
+        static void Menu()
         {
-            Console.Clear ();
+            Console.Clear();
 
             uint opcao = 0;
 
@@ -44,7 +44,7 @@ namespace teste
                 opcao = Convert.ToUInt16(Console.ReadLine());
             }
 
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu inicial");
@@ -55,7 +55,7 @@ namespace teste
             if (opcao == 1)
             {
                 Entrar();
-            }        
+            }
 
             if (opcao == 2)
             {
@@ -86,7 +86,7 @@ namespace teste
             Console.WriteLine("Login");
             Console.WriteLine("---------------------");
 
-           try
+            try
             {
                 Console.Write("Digite seu usuario: ");
                 user = Console.ReadLine();
@@ -95,21 +95,23 @@ namespace teste
                 senha = Console.ReadLine();
             }
 
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.WriteLine("Algo de inesperado aconteceu, retornando ao menu inicial");
                 Entrar();
             }
 
             if (user.CompareTo(user_verificar) == 0 && senha.CompareTo(senha_verificar) == 0)
-            {              
+            {
                 Menu_setores();
-            }  
+            }
 
             else
             {
-                Console.WriteLine ("\nAcesso Negado!\nRedirecionando para menu inicial..."); 
-                Thread.Sleep(1600);
+                Console.WriteLine("---------------------");
+                Console.WriteLine("\nAcesso Negado!\nUsuário ou senha não encontrados.\nVocê pode realizar o cadastro indo ao menu inicial.");
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 Menu();
             }
 
@@ -118,7 +120,7 @@ namespace teste
 
         static void Cadastro_user()
         {
-            Console.Clear();           
+            Console.Clear();
 
             Console.WriteLine("Cadastro");
             Console.WriteLine("---------------------");
@@ -127,7 +129,7 @@ namespace teste
                 Console.Write("Crie um usuário (10 caracteres no máximo): ");
                 user_cadastro = Console.ReadLine();
 
-                if (user_cadastro.Length > 10) 
+                if (user_cadastro.Length > 10)
                 {
                     Console.WriteLine("\nSeu usuário pode conter no máximo 10 caracteres");
                     Thread.Sleep(1300);
@@ -139,8 +141,8 @@ namespace teste
 
                 if (senha_cadastro.Length < 6)
                 {
-                    Console.WriteLine("\nSua senha deve conter no mínimo 6 caracteres");
-                    Thread.Sleep(1300);
+                    Console.WriteLine("\nSua senha deve conter no mínimo 6 caracteres!");
+                    Thread.Sleep(1000);
                     Cadastro_user();
                 }
 
@@ -156,19 +158,19 @@ namespace teste
                 endereco_rua = Console.ReadLine();
                 Console.Write("Digite o complemento: ");
                 endereco_complemento = Console.ReadLine();
-                solicitar_numero_residencia();   
+                solicitar_numero_residencia();
             }
 
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu inicial.");
                 Thread.Sleep(1600);
                 Menu();
-            }          
+            }
         }
-        
-        static void solicitar_numero_residencia() 
+
+        static void solicitar_numero_residencia()
         {
             try
             {
@@ -178,15 +180,14 @@ namespace teste
 
             catch (FormatException)
             {
-                Console.WriteLine("Digite apenas números!\n");
-                Thread.Sleep(1300);
+                Console.WriteLine("Digite apenas números!\n");              
                 solicitar_numero_residencia();
             }
 
             pos_cadastro();
         }
 
-        static void pos_cadastro() 
+        static void pos_cadastro()
         {
             UInt16 opcao_user = 0;
 
@@ -198,7 +199,7 @@ namespace teste
                 opcao_user = UInt16.Parse(Console.ReadLine());
             }
 
-            catch (FormatException) 
+            catch (FormatException)
             {
                 Console.WriteLine("Digite apenas números!");
                 Thread.Sleep(1300);
@@ -222,7 +223,7 @@ namespace teste
                     break;
 
                 default:
-                    Console.WriteLine("\nDigite uma opção válida");
+                    Console.WriteLine("\nDigite uma opção válida!");
                     Thread.Sleep(1300);
                     pos_cadastro();
                     break;
@@ -244,55 +245,62 @@ namespace teste
                 Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-----------------------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
                 Console.Write("\n-> ");
                 opcao_setor = Convert.ToUInt16(Console.ReadLine());
+
+                switch (opcao_setor)
+                {
+                    case 1:
+                        Menu_limpeza();
+                        break;
+
+                    case 2:
+                        Menu_alimentos();
+                        break;
+
+                    case 3:
+                        Menu_carnes();
+                        break;
+
+                    case 4:
+                        if (valor_carrinho == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Nenhum produto adicionado!");
+                            Console.WriteLine("Retornando para o menu de setores...");
+                            Thread.Sleep(1000);
+                            Menu_setores();
+                        }
+                        else
+                        {
+                            Pagamento();
+                        }
+                        break;
+
+                    case 5:
+                        Menu();
+                        break;
+
+                    case 6:
+                        Console.Clear();
+                        Console.WriteLine("Aplicação encerrada!");
+                        Thread.Sleep(1000);
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Digite uma opção válida!\nRetornando ao menu de setores...");
+                        Thread.Sleep(1000);
+                        Menu_setores();
+                        break;
+                }
             }
 
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao Menu de setores.");
-                Thread.Sleep(1600);
+                Thread.Sleep(1000);
                 Menu_setores();
-            }
-
-            switch (opcao_setor)
-            {
-                case 1:
-                    Menu_limpeza();
-                break;
-
-                case 2:
-                    Menu_alimentos();
-                break;
-
-                case 3:
-                    Menu_carnes();
-                break;
-
-                case 4:
-                    if (valor_carrinho == 0)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Nenhum produto adicionado!");
-                        Console.WriteLine("Voltando para o menu de setores...");
-                        Thread.Sleep(1500);
-                        Menu_setores();
-                    }
-                    else
-                    {
-                        Pagamento();
-                    }
-                break;
-
-                case 5:
-                    Menu();
-                break;
-
-                case 6:
-                    Console.Clear();
-                    Console.WriteLine("Aplicação encerrada!");
-                    Thread.Sleep(1000);
-                    Environment.Exit(0);
-                break;
             }
         }
 
@@ -325,7 +333,7 @@ namespace teste
                 adicionar_ou_pagar();
             }
 
-            catch (Exception) 
+            catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu limpeza");
@@ -412,8 +420,8 @@ namespace teste
         static void adicionar_ou_pagar()
         {
             Console.Clear();
-            Console.WriteLine("---------------------------");
-            Console.WriteLine("1 - Adicionar outro produto\n2 - Pagar");
+            Console.WriteLine("-------------------------------------------------------");
+            Console.WriteLine("1 - Adicionar outro produto/Voltar para menu de setores\n2 - Pagar");
             Console.Write("\n-> ");
 
             UInt16 opcao_add_pag = 0;
@@ -427,7 +435,7 @@ namespace teste
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando...");
-                Thread.Sleep(1600);
+                Thread.Sleep(1000);
                 adicionar_ou_pagar();
             }
 
@@ -435,7 +443,7 @@ namespace teste
             {
                 Menu_setores();
             }
-            
+
             if (opcao_add_pag == 2)
             {
                 Pagamento();
@@ -484,9 +492,9 @@ namespace teste
 
                 Console.WriteLine($"Seu pedido chegará em breve no endereço cadastrado:\n\nCidade: {endereco_cidade}\nMunicípio: {endereco_municipio}\nRua: {endereco_rua} N°{endereco_numero}\nComplemento: {endereco_complemento}");
                 Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine("Pressione qualquer tecla para continuar...");            
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey();
-                pos_pagamento();
+                Pos_pagamento();
             }
 
             catch (Exception)
@@ -498,13 +506,13 @@ namespace teste
             }
         }
 
-        static void pos_pagamento()
+        static void Pos_pagamento()
         {
             Console.Clear();
 
             UInt16 opcao_pos_pagamento = 0;
-
-            Console.WriteLine("----------------------");
+          
+            Console.WriteLine("--------------------------");
             Console.WriteLine("Escolha uma opção:\n1 - Ir para menu inicial\n2 - Ir para menu de setores\n3 - Sair");
             Console.Write("\n-> ");
 
@@ -518,18 +526,18 @@ namespace teste
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando...");
                 Thread.Sleep(1600);
-                pos_pagamento();
+                Pos_pagamento();
             }
 
             if (opcao_pos_pagamento == 1)
             {
-                LimparList();
+                Limpar_lista_e_carrinho();
                 Menu();
             }
 
             if (opcao_pos_pagamento == 2)
             {
-                LimparList();
+                Limpar_lista_e_carrinho();
                 Menu_setores();
             }
 
@@ -541,10 +549,10 @@ namespace teste
             }
         }
 
-        public static void LimparList() 
+        public static void Limpar_lista_e_carrinho()
         {
             produtosEscolhidos.Clear();
             valor_carrinho = 0;
-        }        
+        }      
     }
 }
