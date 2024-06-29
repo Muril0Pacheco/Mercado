@@ -9,24 +9,27 @@ namespace teste
     {
         static string user_verificar, senha_verificar;
 
-        static string[] produtos_limpeza = { "Detergente", "Bucha", "Agua Sanitaria 1L" };
-        static decimal[] precos_limpeza = { 2.90m, 2.00m, 7.50m };
-        static string[] produtos_alimentos = { "Arroz 5KG", "Feijao 1KG", "Macarrao 500g" };
-        static decimal[] precos_alimentos = { 15.50m, 5.50m, 7.50m };
-        static string[] produtos_carnes = { "Carne bovina", "Frango", "Linguica" };
-        static decimal[] precos_carnes = { 9.50m, 7.40m, 5.50m };
-
         static string user_cadastro, senha_cadastro;
         static string endereco_municipio, endereco_cidade, endereco_rua, endereco_complemento;
         static UInt16 endereco_numero;
 
-        static List<string> produtosEscolhidos = new List<string>();
         static decimal valor_carrinho;
+
+        static List<string> produtos_limpeza = new List<string> { "Detergente R$ 2.90", "Bucha R$ 2.00", "Água Sanitária 1L R$ 7.50" };
+        static List<decimal> precos_limpeza = new List<decimal> { 2.90m, 2.00m, 7.50m };
+
+        static List<string> produtos_alimentos = new List<string> { "Arroz 5KG R$ 15.50", "Feijão 1KG R$ 5.50", "Macarrão 500g R$ 7.50" };
+        static List<decimal> precos_alimentos = new List<decimal> { 15.50m, 5.50m, 7.50m };
+
+        static List<string> produtos_carnes = new List<string> { "Carne bovina R$ 9.50", "Frango R$ 7.40", "Linguiça R$ 5.50" };
+        static List<decimal> precos_carnes = new List<decimal> { 9.50m, 7.40m, 5.50m };
+
+        static List<string> produtosEscolhidos = new List<string>();
 
         static void Main()
         {
             Menu();
-            //Menu_setores()
+            //Menu_setores();
         }
 
         static void Menu()
@@ -83,7 +86,7 @@ namespace teste
 
             string user = string.Empty, senha = string.Empty;
 
-            Console.WriteLine("Login");
+            Console.WriteLine("LOGIN");
             Console.WriteLine("---------------------");
 
             try
@@ -122,7 +125,7 @@ namespace teste
         {
             Console.Clear();
 
-            Console.WriteLine("Cadastro");
+            Console.WriteLine("CADASTRO");
             Console.WriteLine("---------------------");
             try
             {
@@ -180,7 +183,7 @@ namespace teste
 
             catch (FormatException)
             {
-                Console.WriteLine("Digite apenas números!\n");              
+                Console.WriteLine("Digite apenas números!\n");
                 solicitar_numero_residencia();
             }
 
@@ -194,7 +197,7 @@ namespace teste
             try
             {
                 Console.WriteLine("---------------------");
-                Console.WriteLine("Selecione uma opção:\n1 - Refazer Cadastro\n2 - Login\n3 - Sair ");
+                Console.WriteLine("SELECIONE UMA OPÇÃO:\n1 - Refazer Cadastro\n2 - Login\n3 - Sair ");
                 Console.Write("\n-> ");
                 opcao_user = UInt16.Parse(Console.ReadLine());
             }
@@ -239,10 +242,11 @@ namespace teste
 
                 Console.Clear();
                 Console.WriteLine("-----------------------------");
-                Console.WriteLine("Valor do seu carrinho: " + "R$" + valor_carrinho);
+                Console.WriteLine("VALOR DO SEU CARRINHO: " + "R$" + valor_carrinho);
                 Console.WriteLine("-----------------------------");
-                Console.WriteLine("Escolha um setor: ");
-                Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-----------------------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
+                Console.WriteLine("ESCOLHA UM SETOR/OPÇÃO: ");
+                Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
+                Console.WriteLine("-----------------------------");
                 Console.Write("\n-> ");
                 opcao_setor = Convert.ToUInt16(Console.ReadLine());
 
@@ -312,10 +316,16 @@ namespace teste
 
             try
             {
-                Console.WriteLine($"0 - {produtos_limpeza[0]} " + "R$" + precos_limpeza[0]);
-                Console.WriteLine($"1 - {produtos_limpeza[1]} " + "R$" + precos_limpeza[1]);
-                Console.WriteLine($"2 - {produtos_limpeza[2]} " + "R$" + precos_limpeza[2]);
-                Console.WriteLine("-------------------------");
+                int cont = 0;
+
+                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+
+                foreach (var item in produtos_limpeza)
+                {
+                    Console.WriteLine($"{cont} - {item}");
+                    cont++;
+                }
+                Console.WriteLine("-----------------------------");
                 Console.WriteLine("3 - Voltar ao menu\n");
 
                 Console.Write("-> ");
@@ -328,7 +338,7 @@ namespace teste
                 }
 
                 valor_carrinho += precos_limpeza[opcao_produto];
-                produtosEscolhidos.Add(produtos_limpeza[opcao_produto] + " R$ " + precos_limpeza[opcao_produto]);
+                produtosEscolhidos.Add(produtos_limpeza[opcao_produto]);
 
                 adicionar_ou_pagar();
             }
@@ -351,9 +361,15 @@ namespace teste
 
             try
             {
-                Console.WriteLine($"0 - {produtos_alimentos[0]} " + "R$" + precos_alimentos[0]);
-                Console.WriteLine($"1 - {produtos_alimentos[1]} " + "R$" + precos_alimentos[1]);
-                Console.WriteLine($"2 - {produtos_alimentos[2]} " + "R$" + precos_alimentos[2]);
+                int cont2 = 0;
+
+                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+
+                foreach (var item2 in produtos_alimentos)
+                {
+                    Console.WriteLine($"{cont2} - {item2}");
+                    cont2++;
+                }
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("3 - Voltar ao menu\n");
 
@@ -367,7 +383,7 @@ namespace teste
                 }
 
                 valor_carrinho += precos_alimentos[opcao_produto];
-                produtosEscolhidos.Add(produtos_alimentos[opcao_produto] + " R$ " + precos_alimentos[opcao_produto]);
+                produtosEscolhidos.Add(produtos_alimentos[opcao_produto]);
                 adicionar_ou_pagar();
             }
 
@@ -388,9 +404,15 @@ namespace teste
 
             try
             {
-                Console.WriteLine($"0 - {produtos_carnes[0]} " + "R$" + precos_carnes[0]);
-                Console.WriteLine($"1 - {produtos_carnes[1]} " + "R$" + precos_carnes[1]);
-                Console.WriteLine($"2 - {produtos_carnes[2]} " + "R$" + precos_carnes[2]);
+                int cont3 = 0;
+
+                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+
+                foreach (var item3 in produtos_carnes)
+                {
+                    Console.WriteLine($"{cont3} - {item3}");
+                    cont3++;
+                }
                 Console.WriteLine("-------------------------");
                 Console.WriteLine("3 - Voltar ao menu\n");
 
@@ -404,7 +426,7 @@ namespace teste
                 }
 
                 valor_carrinho += precos_carnes[opcao_produto];
-                produtosEscolhidos.Add(produtos_carnes[opcao_produto] + " R$ " + precos_carnes[opcao_produto]);
+                produtosEscolhidos.Add(produtos_carnes[opcao_produto]);
                 adicionar_ou_pagar();
             }
 
@@ -457,16 +479,16 @@ namespace teste
 
             UInt16 opcao_pag = 0;
 
-            Console.WriteLine("Produtos escolhidos:\n");
+            Console.WriteLine("PRODUTOS ESCOLHIDOS:\n");
             foreach (var produto in produtosEscolhidos)
             {
                 Console.WriteLine(produto);
             }
 
             Console.WriteLine("----------------------");
-            Console.WriteLine("Total a pagar: " + "R$" + valor_carrinho);
+            Console.WriteLine("TOTAL A PAGAR: " + "R$" + valor_carrinho);
             Console.WriteLine("----------------------");
-            Console.WriteLine("Selecione uma opção de pagamento: \n1 - Crédito\n2 - Débito\n3 - Pix");
+            Console.WriteLine("Selecione uma opção de pagamento: \n1 - Crédito\n2 - Paypal\n3 - Pix");
             Console.Write("\n-> ");
 
             try
@@ -482,7 +504,7 @@ namespace teste
                         break;
 
                     case 2:
-                        Console.WriteLine("Pagamento realizado com o cartão de débito.");
+                        Console.WriteLine("Pagamento realizado com o Paypal.");
                         break;
 
                     case 3:
@@ -511,7 +533,7 @@ namespace teste
             Console.Clear();
 
             UInt16 opcao_pos_pagamento = 0;
-          
+
             Console.WriteLine("--------------------------");
             Console.WriteLine("Escolha uma opção:\n1 - Ir para menu inicial\n2 - Ir para menu de setores\n3 - Sair");
             Console.Write("\n-> ");
@@ -553,6 +575,6 @@ namespace teste
         {
             produtosEscolhidos.Clear();
             valor_carrinho = 0;
-        }      
+        }
     }
 }

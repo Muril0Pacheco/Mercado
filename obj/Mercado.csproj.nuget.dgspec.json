@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dev\\mercado\\Mercado.csproj": {}
+    "D:\\dev\\Mercado\\Mercado.csproj": {}
   },
   "projects": {
-    "D:\\dev\\mercado\\Mercado.csproj": {
+    "D:\\dev\\Mercado\\Mercado.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev\\mercado\\Mercado.csproj",
+        "projectUniqueName": "D:\\dev\\Mercado\\Mercado.csproj",
         "projectName": "Mercado",
-        "projectPath": "D:\\dev\\mercado\\Mercado.csproj",
+        "projectPath": "D:\\dev\\Mercado\\Mercado.csproj",
         "packagesPath": "C:\\Users\\Murilo\\.nuget\\packages\\",
-        "outputPath": "D:\\dev\\mercado\\obj\\",
+        "outputPath": "D:\\dev\\Mercado\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Murilo\\AppData\\Roaming\\NuGet\\NuGet.Config",
