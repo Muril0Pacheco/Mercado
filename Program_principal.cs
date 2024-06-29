@@ -6,9 +6,7 @@ using System.Collections.Generic;
 namespace teste
 {
     class Program
-    {
-        static string user_verificar, senha_verificar;
-
+    {   
         static string user_cadastro, senha_cadastro;
         static string endereco_municipio, endereco_cidade, endereco_rua, endereco_complemento;
         static UInt16 endereco_numero;
@@ -26,10 +24,12 @@ namespace teste
 
         static List<string> produtosEscolhidos = new List<string>();
 
+        static List<string> usuarios = new List<string> { "adm" };
+        static List<string> senhas = new List<string> { "adm123" };
+
         static void Main()
         {
-            Menu();
-            //Menu_setores();
+            Menu();        
         }
 
         static void Menu()
@@ -95,16 +95,18 @@ namespace teste
                 user = Console.ReadLine();
 
                 Console.Write("Digite sua senha: ");
-                senha = Console.ReadLine();
+                senha = Console.ReadLine();           
             }
 
             catch (Exception)
             {
-                Console.WriteLine("Algo de inesperado aconteceu, retornando ao menu inicial");
+                Console.WriteLine("Algo de inesperado aconteceu, retornando ao Login");
                 Entrar();
             }
+          
+            bool loginValido = VerificarLogin(usuarios, senhas, user, senha);
 
-            if (user.CompareTo(user_verificar) == 0 && senha.CompareTo(senha_verificar) == 0)
+            if (loginValido)
             {
                 Menu_setores();
             }
@@ -149,8 +151,11 @@ namespace teste
                     Cadastro_user();
                 }
 
-                user_verificar = user_cadastro;
-                senha_verificar = senha_cadastro;
+                //user_verificar = user_cadastro;
+                //senha_verificar = senha_cadastro;
+
+                usuarios.Add(user_cadastro);
+                senhas.Add(senha_cadastro);
 
                 Console.WriteLine("---------------------");
                 Console.Write("Digite sua cidade: ");
@@ -171,6 +176,17 @@ namespace teste
                 Thread.Sleep(1600);
                 Menu();
             }
+        }
+
+        static bool VerificarLogin(List<string> usuarios, List<string> senhas, string user, string senha)
+        {        
+            int index = usuarios.IndexOf(user);
+          
+            if (index >= 0 && senhas[index] == senha)
+            {
+                return true;
+            }
+            return false;
         }
 
         static void solicitar_numero_residencia()
