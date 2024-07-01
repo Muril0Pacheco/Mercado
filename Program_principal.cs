@@ -19,8 +19,8 @@ namespace teste
         static List<string> produtos_alimentos = new List<string> { "Arroz 5KG R$ 15.50", "Feijão 1KG R$ 5.50", "Macarrão 500g R$ 7.50" };
         static List<decimal> precos_alimentos = new List<decimal> { 15.50m, 5.50m, 7.50m };
 
-        static List<string> produtos_carnes = new List<string> { "Carne bovina R$ 9.50", "Frango R$ 7.40", "Linguiça R$ 5.50" };
-        static List<decimal> precos_carnes = new List<decimal> { 9.50m, 7.40m, 5.50m };
+        static List<string> produtos_carnes = new List<string> { "Picanha R$ 89.50 KG", "Frango R$ 7.40 KG", "Linguiça R$ 13.50 KG" };
+        static List<decimal> precos_carnes = new List<decimal> { 89.50m, 7.40m, 13.50m };
 
         static List<string> produtosEscolhidos = new List<string>();
 
@@ -87,7 +87,7 @@ namespace teste
             string user = string.Empty, senha = string.Empty;
 
             Console.WriteLine("LOGIN");
-            Console.WriteLine("---------------------");
+            Console.WriteLine("-----");
 
             try
             {
@@ -128,36 +128,29 @@ namespace teste
             Console.Clear();
 
             Console.WriteLine("CADASTRO");
-            Console.WriteLine("---------------------");
+            Console.WriteLine("--------");
             try
             {
                 Console.Write("Crie um usuário (10 caracteres no máximo): ");
                 user_cadastro = Console.ReadLine();
 
-                if (user_cadastro.Length > 10)
-                {
-                    Console.WriteLine("\nSeu usuário pode conter no máximo 10 caracteres");
-                    Thread.Sleep(1300);
-                    Cadastro_user();
-                }
+                VerificarUsuario(usuarios, user_cadastro);              
 
                 Console.Write("Crie uma senha (6 caracteres no mínimo): ");
                 senha_cadastro = Console.ReadLine();
 
                 if (senha_cadastro.Length < 6)
                 {
-                    Console.WriteLine("\nSua senha deve conter no mínimo 6 caracteres!");
-                    Thread.Sleep(1000);
+                    Console.WriteLine("\nSua senha deve conter no mínimo 6 caracteres.");
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadKey();
                     Cadastro_user();
-                }
-
-                //user_verificar = user_cadastro;
-                //senha_verificar = senha_cadastro;
+                }               
 
                 usuarios.Add(user_cadastro);
                 senhas.Add(senha_cadastro);
 
-                Console.WriteLine("---------------------");
+                Console.WriteLine("------------------");
                 Console.Write("Digite sua cidade: ");
                 endereco_cidade = Console.ReadLine();
                 Console.Write("Digite seu município: ");
@@ -173,7 +166,8 @@ namespace teste
             {
                 Console.Clear();
                 Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu inicial.");
-                Thread.Sleep(1600);
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu inicial...");
+                Console.ReadKey();
                 Menu();
             }
         }
@@ -186,6 +180,33 @@ namespace teste
             {
                 return true;
             }
+            return false;
+        }
+
+        static bool VerificarUsuario(List<string> usuarios, string user_cadastro)
+        {
+            if (user_cadastro == string.Empty)
+            {
+                Cadastro_user();
+            }
+
+            int index = usuarios.IndexOf(user_cadastro);
+            if (index >= 0)
+            {
+                Console.WriteLine("\nUsuário existente, crie outro.");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                Cadastro_user();
+            }
+            
+            if (user_cadastro.Length > 10)
+            {
+                Console.WriteLine("\nSeu usuário pode conter no máximo 10 caracteres.");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                Cadastro_user();
+            }
+
             return false;
         }
 
@@ -212,7 +233,7 @@ namespace teste
 
             try
             {
-                Console.WriteLine("---------------------");
+                Console.WriteLine("--------------------");
                 Console.WriteLine("SELECIONE UMA OPÇÃO:\n1 - Refazer Cadastro\n2 - Login\n3 - Sair ");
                 Console.Write("\n-> ");
                 opcao_user = UInt16.Parse(Console.ReadLine());
@@ -221,7 +242,8 @@ namespace teste
             catch (FormatException)
             {
                 Console.WriteLine("Digite apenas números!");
-                Thread.Sleep(1300);
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 pos_cadastro();
             }
 
@@ -243,7 +265,8 @@ namespace teste
 
                 default:
                     Console.WriteLine("\nDigite uma opção válida!");
-                    Thread.Sleep(1300);
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadKey();
                     pos_cadastro();
                     break;
             }
@@ -261,7 +284,7 @@ namespace teste
                 Console.WriteLine("VALOR DO SEU CARRINHO: " + "R$" + valor_carrinho);
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("ESCOLHA UM SETOR/OPÇÃO: ");
-                Console.WriteLine("1 - Limpeza\n2 - Alimentos\n3 - Carnes\n-------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
+                Console.WriteLine("1 - Limpeza\n2 - Carnes\n3 - Alimentos\n-------------\n4 - Pagar\n5 - Menu Inicial\n6 - Sair");
                 Console.WriteLine("-----------------------------");
                 Console.Write("\n-> ");
                 opcao_setor = Convert.ToUInt16(Console.ReadLine());
@@ -273,20 +296,20 @@ namespace teste
                         break;
 
                     case 2:
-                        Menu_alimentos();
+                        Menu_carnes();
                         break;
 
                     case 3:
-                        Menu_carnes();
+                        Menu_alimentos();
                         break;
 
                     case 4:
                         if (valor_carrinho == 0)
                         {
                             Console.Clear();
-                            Console.WriteLine("Nenhum produto adicionado!");
-                            Console.WriteLine("Retornando para o menu de setores...");
-                            Thread.Sleep(1000);
+                            Console.WriteLine("Nenhum produto adicionado!");                           
+                            Console.WriteLine("Pressione qualquer tecla para retornar ao menu de setores...");
+                            Console.ReadKey();
                             Menu_setores();
                         }
                         else
@@ -308,8 +331,9 @@ namespace teste
 
                     default:
                         Console.Clear();
-                        Console.WriteLine("Digite uma opção válida!\nRetornando ao menu de setores...");
-                        Thread.Sleep(1000);
+                        Console.WriteLine("Digite uma opção válida!");
+                        Console.WriteLine("Pressione qualquer tecla para retornar ao menu de setores...");
+                        Console.ReadKey();
                         Menu_setores();
                         break;
                 }
@@ -318,8 +342,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao Menu de setores.");
-                Thread.Sleep(1000);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu de setores...");
+                Console.ReadKey();
                 Menu_setores();
             }
         }
@@ -334,7 +359,7 @@ namespace teste
             {
                 int cont = 0;
 
-                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+                Console.WriteLine("ESCOLHA UM PRODUTO/OPÇÃO: \n");
 
                 foreach (var item in produtos_limpeza)
                 {
@@ -362,8 +387,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu limpeza");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu de limpeza...");
+                Console.ReadKey();
                 Menu_limpeza();
             }
 
@@ -379,7 +405,7 @@ namespace teste
             {
                 int cont2 = 0;
 
-                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+                Console.WriteLine("ESCOLHA UM PRODUTO/OPÇÃO: \n");
 
                 foreach (var item2 in produtos_alimentos)
                 {
@@ -406,8 +432,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu de alimentos");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu de alimentos...");
+                Console.ReadKey();
                 Menu_alimentos();
             }
         }
@@ -422,7 +449,7 @@ namespace teste
             {
                 int cont3 = 0;
 
-                Console.WriteLine("ESCOLHA UM PRODUTO: \n");
+                Console.WriteLine("ESCOLHA UM PRODUTO/OPÇÃO: \n");
 
                 foreach (var item3 in produtos_carnes)
                 {
@@ -449,8 +476,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu de carnes");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu de carnes...");
+                Console.ReadKey();
                 Menu_carnes();
             }
         }
@@ -472,8 +500,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando...");
-                Thread.Sleep(1000);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 adicionar_ou_pagar();
             }
 
@@ -538,8 +567,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao Pagamento");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceuo");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao pagamento...");
+                Console.ReadKey();
                 Pagamento();
             }
         }
@@ -562,8 +592,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando...");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("Pressione qualquer tecla para retornar...");
+                Console.ReadKey();
                 Pos_pagamento();
             }
 
@@ -583,6 +614,7 @@ namespace teste
             {
                 Console.Clear();
                 Console.WriteLine("Aplicação encerrada.");
+                Thread.Sleep(1100);
                 Environment.Exit(0);
             }
         }
