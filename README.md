@@ -1,4 +1,3 @@
--Aplicação do tipo console;
 -Primeiramente o usuário faz seu cadastro, onde ele cria um usuário e senha, e adiciona seu endereço;
 -Após efetuar o login ele é redirecionado para o menu de setores, onde existem 3 sessões, com 3 produtos em cada. E também é exibido as opções de pagar e sair;
 -No menu de setores é exibido o valor do carrinho conforme o usuário vai adicionando mais produtos;
