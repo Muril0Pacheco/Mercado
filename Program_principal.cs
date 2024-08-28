@@ -2,8 +2,7 @@
 using System.Threading;
 using System.Collections.Generic;
 
-
-namespace teste
+namespace Mercado
 {
     class Program
     {   
@@ -50,8 +49,9 @@ namespace teste
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine("Algo de inesperado aconteceu.\nRetornando ao menu inicial");
-                Thread.Sleep(1600);
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 Menu();
             }
 
@@ -74,8 +74,11 @@ namespace teste
 
             else
             {
+                Console.Clear();
+
                 Console.WriteLine("Digite uma opcao valida!");
-                Thread.Sleep(1300);
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 Menu();
             }
         }
@@ -100,7 +103,9 @@ namespace teste
 
             catch (Exception)
             {
-                Console.WriteLine("Algo de inesperado aconteceu, retornando ao Login");
+                Console.WriteLine("Algo de inesperado aconteceu.");
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
                 Entrar();
             }
           
@@ -113,7 +118,6 @@ namespace teste
 
             else
             {
-                Console.WriteLine("---------------------");
                 Console.WriteLine("\nAcesso Negado!\nUsuário ou senha não encontrados.\nVocê pode realizar o cadastro indo ao menu inicial.");
                 Console.WriteLine("\nPressione qualquer tecla para continuar...");
                 Console.ReadKey();
@@ -134,7 +138,7 @@ namespace teste
                 Console.Write("Crie um usuário (10 caracteres no máximo): ");
                 user_cadastro = Console.ReadLine();
 
-                VerificarUsuario(usuarios, user_cadastro);              
+                VerificarUsuarioCadastro(usuarios, user_cadastro);              
 
                 Console.Write("Crie uma senha (6 caracteres no mínimo): ");
                 senha_cadastro = Console.ReadLine();
@@ -183,7 +187,7 @@ namespace teste
             return false;
         }
 
-        static bool VerificarUsuario(List<string> usuarios, string user_cadastro)
+        static bool VerificarUsuarioCadastro(List<string> usuarios, string user_cadastro)
         {
             if (user_cadastro == string.Empty)
             {
@@ -218,7 +222,7 @@ namespace teste
                 endereco_numero = Convert.ToUInt16(Console.ReadLine());
             }
 
-            catch (FormatException)
+            catch (Exception)
             {
                 Console.WriteLine("Digite apenas números!\n");
                 solicitar_numero_residencia();
@@ -278,7 +282,6 @@ namespace teste
 
             try
             {
-
                 Console.Clear();
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("VALOR DO SEU CARRINHO: " + "R$" + valor_carrinho);
@@ -392,7 +395,6 @@ namespace teste
                 Console.ReadKey();
                 Menu_limpeza();
             }
-
         }
 
         static void Menu_alimentos()
@@ -515,7 +517,6 @@ namespace teste
             {
                 Pagamento();
             }
-
         }
 
         static void Pagamento()

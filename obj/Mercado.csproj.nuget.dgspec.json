@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dev\\mercado\\Mercado.csproj": {}
+    "D:\\dev\\Mercado\\Mercado.csproj": {}
   },
   "projects": {
-    "D:\\dev\\mercado\\Mercado.csproj": {
+    "D:\\dev\\Mercado\\Mercado.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev\\mercado\\Mercado.csproj",
+        "projectUniqueName": "D:\\dev\\Mercado\\Mercado.csproj",
         "projectName": "Mercado",
-        "projectPath": "D:\\dev\\mercado\\Mercado.csproj",
-        "packagesPath": "C:\\Users\\Murilo\\.nuget\\packages\\",
-        "outputPath": "D:\\dev\\mercado\\obj\\",
+        "projectPath": "D:\\dev\\Mercado\\Mercado.csproj",
+        "packagesPath": "C:\\Users\\pache\\.nuget\\packages\\",
+        "outputPath": "D:\\dev\\Mercado\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Murilo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pache\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
