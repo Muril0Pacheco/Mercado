@@ -56,14 +56,10 @@ namespace Mercado
             }
 
             if (opcao == 1)
-            {
                 Entrar();
-            }
 
-            if (opcao == 2)
-            {
-                Cadastro_user();
-            }
+            if (opcao == 2)          
+                Cadastro_user();           
 
             if (opcao == 3)
             {
@@ -112,9 +108,7 @@ namespace Mercado
             bool loginValido = VerificarLogin(usuarios, senhas, user, senha);
 
             if (loginValido)
-            {
-                Menu_setores();
-            }
+                Menu_setores();            
 
             else
             {
@@ -181,18 +175,16 @@ namespace Mercado
             int index = usuarios.IndexOf(user);
           
             if (index >= 0 && senhas[index] == senha)
-            {
-                return true;
-            }
+            return true;
+
+            else
             return false;
         }
 
         static bool VerificarUsuarioCadastro(List<string> usuarios, string user_cadastro)
         {
             if (user_cadastro == string.Empty)
-            {
-                Cadastro_user();
-            }
+            Cadastro_user();
 
             int index = usuarios.IndexOf(user_cadastro);
             if (index >= 0)
@@ -316,9 +308,8 @@ namespace Mercado
                             Menu_setores();
                         }
                         else
-                        {
                             Pagamento();
-                        }
+
                         break;
 
                     case 5:
@@ -377,9 +368,7 @@ namespace Mercado
                 opcao_produto = Convert.ToUInt16(Console.ReadLine());
 
                 if (opcao_produto == 3)
-                {
                     Menu_setores();
-                }
 
                 valor_carrinho += precos_limpeza[opcao_produto];
                 produtosEscolhidos.Add(produtos_limpeza[opcao_produto]);
@@ -422,9 +411,7 @@ namespace Mercado
                 opcao_produto = Convert.ToUInt16(Console.ReadLine());
 
                 if (opcao_produto == 3)
-                {
                     Menu_setores();
-                }
 
                 valor_carrinho += precos_alimentos[opcao_produto];
                 produtosEscolhidos.Add(produtos_alimentos[opcao_produto]);
@@ -466,9 +453,7 @@ namespace Mercado
                 opcao_produto = Convert.ToUInt16(Console.ReadLine());
 
                 if (opcao_produto == 3)
-                {
                     Menu_setores();
-                }
 
                 valor_carrinho += precos_carnes[opcao_produto];
                 produtosEscolhidos.Add(produtos_carnes[opcao_produto]);
@@ -509,14 +494,10 @@ namespace Mercado
             }
 
             if (opcao_add_pag == 1)
-            {
                 Menu_setores();
-            }
 
             if (opcao_add_pag == 2)
-            {
                 Pagamento();
-            }
         }
 
         static void Pagamento()
